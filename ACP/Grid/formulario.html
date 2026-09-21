@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios</title>
+
+    <!-- Icono de la pestaña -->
+    <link rel="icon" type="image/png" href="/ACP/PlantillaWeb/assets/img/1.png">
+
+    <!-- Estilos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Mis estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/generic.css">
+</head>
+<body>
+
+    <!-- Menú principal de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand d-flex align-items-center gap-2">
+                <img src="assets/img/favicon.png" alt="Logo" class="navbar-brand-icon">
+                <span>Mi Web</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="lateral.html">Lateral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="triple.html">Triple</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="periodico.html">Periódico</a>
+                    </li>
+                    <!-- Opción activa: sin enlace -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Formularios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal con pestañas dinámicas de formularios -->
+    <main class="container my-5">
+        <h1 class="mb-4">Gestión de Formularios</h1>
+
+        <!-- Pestañas de navegación de los formularios -->
+        <ul class="nav nav-tabs" id="pestanasFormularios" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="registro-tab" data-bs-toggle="tab" data-bs-target="#panel-registro" type="button" role="tab" aria-controls="panel-registro" aria-selected="true">Registro</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contacto-tab" data-bs-toggle="tab" data-bs-target="#panel-contacto" type="button" role="tab" aria-controls="panel-contacto" aria-selected="false">Contacto</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="login-tab" data-bs-toggle="tab" data-bs-target="#panel-login" type="button" role="tab" aria-controls="panel-login" aria-selected="false">Iniciar Sesión</button>
+            </li>
+        </ul>
+
+        <!-- Contenido dinámico de cada formulario -->
+        <div class="tab-content border border-top-0 rounded-bottom p-4 bg-light shadow-sm" id="contenidoPestanas">
+
+            <!-- 1. Formulario de Registro -->
+            <div class="tab-pane fade show active" id="panel-registro" role="tabpanel" aria-labelledby="registro-tab">
+                <h3 class="mb-3">Registro de Usuario</h3>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="regNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="regNombre" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="regApellidos" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="regApellidos" required>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="regEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="regEmail" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="regPass" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="regPass" required>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="regCondiciones" required>
+                                <label class="form-check-label" for="regCondiciones">Acepto los términos y condiciones</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 2. Formulario de Contacto -->
+            <div class="tab-pane fade" id="panel-contacto" role="tabpanel" aria-labelledby="contacto-tab">
+                <h3 class="mb-3">Formulario de Contacto</h3>
+                <form>
+                    <div class="mb-3">
+                        <label for="contNombre" class="form-label">Nombre o Empresa</label>
+                        <input type="text" class="form-control" id="contNombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contMotivo" class="form-label">Motivo de consulta</label>
+                        <select class="form-select" id="contMotivo">
+                            <option selected>Soporte técnico</option>
+                            <option value="1">Facturación</option>
+                            <option value="2">Información comercial</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contMensaje" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="contMensaje" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Enviar Consulta</button>
+                </form>
+            </div>
+
+            <!-- 3. Formulario de Inicio de Sesión -->
+            <div class="tab-pane fade" id="panel-login" role="tabpanel" aria-labelledby="login-tab">
+                <h3 class="mb-3">Acceso al Sistema</h3>
+                <form class="col-md-6">
+                    <div class="mb-3">
+                        <label for="logUsuario" class="form-label">Usuario o Email</label>
+                        <input type="text" class="form-control" id="logUsuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="logClave" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="logClave" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="logRecordar">
+                        <label class="form-check-label" for="logRecordar">Recordar mis datos</label>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Entrar</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Librería JS de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Mi script JS -->
+    <script src="assets/js/master.js"></script>
+</body>
+</html>

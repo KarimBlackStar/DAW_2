@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estructura Lateral - 1/3 y 2/3</title>
+    <title>Estructura Lateral</title>
 
     <!-- Icono de la pestaña -->
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
@@ -16,30 +16,50 @@
 </head>
 <body>
 
+    <!-- Menú principal de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand d-flex align-items-center gap-2">
+                <img src="assets/img/favicon.png" alt="Logo" class="navbar-brand-icon">
+                <span>Mi Web</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Opción activa: sin enlace hacia ninguna URL -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Lateral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="triple.html">Triple</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="periodico.html">Periódico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="formularios.html">Formularios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- Contenedor principal -->
     <main class="container my-5">
         <h1 class="mb-4">Estructura Lateral</h1>
-
         <div class="row g-4">
-            <!-- Barra lateral: 1/3 del ancho (4 de 12 columnas) -->
             <aside class="col-md-4">
                 <div class="p-4 bg-light border rounded h-100">
                     <h2>Lateral (1/3)</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-transparent">Enlace de ejemplo 1</li>
-                        <li class="list-group-item bg-transparent">Enlace de ejemplo 2</li>
-                        <li class="list-group-item bg-transparent">Enlace de ejemplo 3</li>
-                    </ul>
                 </div>
             </aside>
-
-            <!-- Contenido principal: 2/3 del ancho (8 de 12 columnas) -->
             <section class="col-md-8">
                 <div class="p-4 bg-light border rounded h-100">
                     <h2>Contenido Principal (2/3)</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae erat eu purus accumsan luctus. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
                 </div>
             </section>
         </div>

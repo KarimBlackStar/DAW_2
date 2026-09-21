@@ -16,45 +16,59 @@
 </head>
 <body class="min-vh-100 d-flex flex-column">
 
-    <!-- Menú superior que ocupa todo el ancho de la página -->
-    <header class="w-100 bg-dark text-white py-3 shadow-sm">
-        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
-            <span class="fs-4 fw-bold">El Periódico Digital</span>
-            <nav>
-                <a href="#" class="text-white text-decoration-none me-3">Portada</a>
-                <a href="#" class="text-white text-decoration-none me-3">Nacional</a>
-                <a href="#" class="text-white text-decoration-none me-3">Economía</a>
-                <a href="#" class="text-white text-decoration-none">Tecnología</a>
-            </nav>
+    <!-- Menú principal superior de ancho completo -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+        <div class="container-fluid px-4">
+            <span class="navbar-brand d-flex align-items-center gap-2">
+                <img src="assets/img/favicon.png" alt="Logo" class="navbar-brand-icon">
+                <span>El Periódico Digital</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="lateral.html">Lateral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="triple.html">Triple</a>
+                    </li>
+                    <!-- Opción activa: sin enlace -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Periódico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="formularios.html">Formularios</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Contenedor central (flex-grow-1 para empujar el pie al fondo) -->
+    <!-- Contenedor central -->
     <main class="container my-5 flex-grow-1">
         <div class="row g-4">
-            <!-- Columna izquierda: 50% con imagen flotando a la izquierda -->
             <article class="col-md-6">
                 <div class="p-4 bg-light border rounded h-100">
                     <h2>Noticia Principal</h2>
-                    <!-- Imagen flotando a la izquierda con margen derecho e inferior -->
-                    <img src="news.png" alt="Icono noticia" class="float-start me-3 mb-2 rounded border" width="90" height="90">
+                    <img src="/ACP/Grid/" alt="Icono noticia" class="float-start me-3 mb-2 rounded border" width="80" height="80">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                 </div>
             </article>
 
-            <!-- Columna derecha: 50% -->
             <article class="col-md-6">
                 <div class="p-4 bg-light border rounded h-100">
                     <h2>Noticia Secundaria</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae erat eu purus accumsan luctus. Sed congue, ipsum id molestie dignissim, erat lorem faucibus eros, eu convallis erat magna vitae odio.</p>
-                    <p>Vivamus id purus non lectus interdum lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam lacinia dictum erat, a finibus lectus vehicula a.</p>
+                    <p>Vivamus id purus non lectus interdum lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
                 </div>
             </article>
         </div>
     </main>
 
-    <!-- Pie de página que ocupa todo el ancho de la página y queda al fondo -->
+    <!-- Pie de página de ancho completo -->
     <footer class="w-100 bg-dark text-white text-center py-4 mt-auto">
         <div class="container-fluid">
             <p class="mb-0">© 2026 El Periódico Digital - Todos los derechos reservados.</p>

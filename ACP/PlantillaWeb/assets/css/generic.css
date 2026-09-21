@@ -1,0 +1,12 @@
+/* Reglas para el icono del menú de navegación */
+.navbar-brand-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: inline-block;
+}
+
+/* Indicador visual para el enlace activo que no lleva href */
+.nav-link.active {
+    cursor: default;
+}
