@@ -1,0 +1,18 @@
+/* Reglas para el icono del menú de navegación */
+.navbar-brand-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: inline-block;
+}
+
+/* Indicador visual para el enlace activo que no lleva href */
+.nav-link.active {
+    cursor: default;
+}
+
+/* Ajuste de imágenes para las cartas de productos */
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}

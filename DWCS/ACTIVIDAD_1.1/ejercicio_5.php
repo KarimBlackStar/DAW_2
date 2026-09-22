@@ -7,14 +7,12 @@
 </head>
 <body>
     <?php
-        function invertirNumero(int $num1){
-            $invertido = (int) strrev((string) abs($num1));
-            return $num1 < 0 ? -$invertido : $invertido;
+        function invertirNumero($num1){
+            return strrev($num1);
         }
-        echo invertirNumero(1234) . "\n";
-        echo invertirNumero(2468) . "\n";
-        echo invertirNumero(3579) . "\n";
-
+        echo invertirNumero("1234") . "\n";
+        echo invertirNumero("2468") . "\n";
+        echo invertirNumero("3579") . "\n";
     ?>
 </body>
 </html>
