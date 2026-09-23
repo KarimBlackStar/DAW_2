@@ -6,8 +6,13 @@
     <title>Document</title>
 </head>
 <body>
+    <form action="DWCS/ejercicio6.php" method="post">
+        <label for="numero"> Introduce un número: </label>
+        <input type="text" name="numero">
+        <input type="submit" value="enviar">
+    </form>
     <?php
-    
+        
     ?>
 </body>
 </html>
