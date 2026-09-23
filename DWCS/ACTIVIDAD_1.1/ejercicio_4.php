@@ -7,10 +7,13 @@
 </head>
 <body>
     <?php
+    define("PI", 3.1416);
         function calcularVolumen($radio, $altura){
-            return $volumen = 3.1416*$radio*$radio*$altura;
+            return $volumen = PI*$radio*$radio*$altura;
+            //return $volumen = PI*$radio*$radio*$altura;
         }
         echo calcularVolumen(5,10);
     ?>
+    <h2>Volumen de un cilindro de radio 5 y altura 10</h2>
 </body>
 </html>
