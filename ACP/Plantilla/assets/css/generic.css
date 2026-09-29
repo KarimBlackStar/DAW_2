@@ -1,0 +1,17 @@
+
+/* Icono del menú, usando la imagen por CSS */
+.menu-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('../img/icon.png');
+    background-size: cover;
+    background-position: center;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+/* Opcional: ajustar márgenes generales si se necesita */
+body {
+    background-color: #f8f9fa;
+}
