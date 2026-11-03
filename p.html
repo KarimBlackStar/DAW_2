@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución Examen UD1 - Completo</title>
+    <style>
+        body { font-family: system-ui, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        h3 { color: #16a085; }
+        pre { background-color: #f4f6f7; padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid #34495e; }
+        code { font-family: 'Courier New', Courier, monospace; color: #c0392b; }
+        .nota { background-color: #e8f8f5; padding: 10px; border-left: 4px solid #1abc9c; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Solución Completa: Lógica + CRUD de Equipos (PHP)</h1>
+
+    <h2>PARTE 1: Ejercicios de Lógica</h2>
+    
+    <h3>Ejercicio 1: Análisis de Frecuencias (ejercicio1/index.php)</h3>
+    <pre><code><?php
+function analisisFrecuencias(string $texto): array {
+    $textoMayus = strtoupper($texto);
+    $letras = str_split($textoMayus);
+    $frecuencias = [];
+    
+    foreach ($letras as $letra) {
+        if ($letra === ' ' || $letra === '.' || $letra === ',') {
+            continue;
+        }
+        if (isset($frecuencias[$letra])) {
+            $frecuencias[$letra]++;
+        } else {
+            $frecuencias[$letra] = 1;
+        }
+    }
+    return $frecuencias;
+}
+?></code></pre>
+
+    <h3>Ejercicio 2: Sucesión de Fibonacci (ejercicio2/index.php)</h3>
+    <pre><code><?php
+function fibonacci($n) {
+    if ($n == 0) return 0;
+    if ($n == 1) return 1;
+    
+    $a = 0;
+    $b = 1;
+    
+    for ($i = 2; $i <= $n; $i++) {
+        $siguiente = $a + $b;
+        $a = $b;
+        $b = $siguiente;
+    }
+    return $b;
+}
+?></code></pre>
+
+    <h2>PARTE 2: Base de Datos y CRUD</h2>
+
+    <h3>Archivo: <code>db.php</code></h3>
+    <div class="nota">
+        <strong>Regla de Oro:</strong> Este archivo no debe tener la etiqueta de cierre <code>?></code> al final para evitar que los espacios en blanco provoquen el Error 500 al hacer la redirección.
+    </div>
+    <pre><code><?php
+define("DSN", "mysql:host=mariadb;dbname=examen1_db");
+define("DB_USER", "root");
+define("DB_PASS", "bitnami");
+
+function getConnection(){
+    try {
+        return new PDO(DSN, DB_USER, DB_PASS);
+    } catch (PDOException $e) {
+        die("Fallo en la BD: " . $e->getMessage());
+    }
+}
+
+function getEquipos(string $filtroNombre = "", string $orden = "id_equipo") : array{
+    $db = getConnection();
+    $equipos = [];
+    $sql = "SELECT id_equipo, nombre, email, num_integrantes, puntuacion FROM equipos 
+            WHERE nombre LIKE '%$filtroNombre%' ORDER BY $orden";
+
+    try {
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $equipos = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die("ERROR SQL: " . $e->getMessage());
+    } finally{
+        $db = null;
+        $statement = null;
+    }
+    return $equipos;
+}
+
+function getEquipoPorId($id) {
+    $db = getConnection();
+    $equipo = null;
+    $sql = "SELECT id_equipo, nombre, email, num_integrantes, puntuacion FROM equipos WHERE id_equipo = $id";
+
+    try {
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $equipo = $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die("ERROR SQL AL BUSCAR ID: " . $e->getMessage()); 
+    } finally {
+        $db = null;
+        $statement = null;
+    }
+    return $equipo;
+}
+
+function actualizarEquipo($id, $nombre, $email, $num, $puntuacion) {
+    $db = getConnection();
+    $sql = "UPDATE equipos SET 
+                nombre = '$nombre', 
+                email = '$email', 
+                num_integrantes = $num, 
+                puntuacion = $puntuacion 
+            WHERE id_equipo = $id";
+
+    try {
+        $statement = $db->prepare($sql);
+        $statement->execute();
+    } catch (PDOException $e) {
+        die("ERROR SQL AL ACTUALIZAR: " . $e->getMessage()); 
+    } finally {
+        $db = null;
+        $statement = null;
+    }
+}
+// SIN ETIQUETA DE CIERRE</code></pre>
+
+    <h3>Archivo: <code>modificar_equipo.php</code></h3>
+    <pre><code><?php
+require_once 'db.php';
+
+// Si venimos de pulsar el botón Guardar (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_guardar = $_POST['id_equipo'];
+    $nombre_guardar = $_POST['nombre'];
+    $email_guardar = $_POST['email'];
+    $num_guardar = $_POST['num_integrantes'];
+    $puntuacion_guardar = $_POST['puntuacion'];
+
+    actualizarEquipo($id_guardar, $nombre_guardar, $email_guardar, $num_guardar, $puntuacion_guardar);
+
+    header("Location: listar_equipos.php");
+    exit(); 
+}
+
+// Si entramos a ver el formulario (GET)
+$id = $_GET['id'] ?? 0;
+$equipoEditar = getEquipoPorId($id);
+
+if (!$equipoEditar) {
+    die("No se ha encontrado el equipo. Vuelve a la lista y haz clic en Editar.");
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../resources/css/modificar_equipo.css">
+    <title>Modificar equipo</title>
+</head>
+<body>
+    <h1>Actualizar datos de equipo</h1>
+    <fieldset>
+        <legend>Datos de <?php echo $equipoEditar['nombre']; ?></legend>
+        <form method="POST" action="modificar_equipo.php">
+            <!-- El ID original viaja oculto -->
+            <input type="hidden" name="id_equipo" value="<?php echo $equipoEditar['id_equipo']; ?>">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" value="<?php echo $equipoEditar['nombre']; ?>">
+
+            <label for="email">Correo de contacto</label>
+            <input type="text" name="email" value="<?php echo $equipoEditar['email']; ?>">
+
+            <label for="num_integrantes">Nº Integrantes</label>
+            <input type="text" name="num_integrantes" class="input_pequeno" value="<?php echo $equipoEditar['num_integrantes']; ?>">
+
+            <label for="puntuacion">Puntuación</label>
+            <input type="text" name="puntuacion" class="input_pequeno" value="<?php echo $equipoEditar['puntuacion']; ?>">
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="listar_equipos.php" class="btn btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </fieldset>
+</body>
+</html></code></pre>
+
+    <h3>Archivo: <code>listar_equipos.php</code></h3>
+    <pre><code><?php
+require_once 'db.php';
+
+// Atrapamos las variables de búsqueda por GET
+$filtroNombre = $_GET['nombre'] ?? '';
+$orden = $_GET['orden'] ?? 'id_equipo';
+
+// Extraemos los resultados con fetchAll
+$equipos = getEquipos($filtroNombre, $orden);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Equipos</title>
+    <link rel="stylesheet" href="../resources/css/style.css">
+</head>
+<body>
+    <h1>Listado de Equipos</h1>
+
+    <!-- Buscador -->
+    <form method="GET" action="listar_equipos.php">
+        <label for="nombre">Buscar equipo:</label>
+        <input type="text" name="nombre" value="<?php echo $filtroNombre; ?>">
+        <!-- Mantenemos el orden actual al buscar -->
+        <input type="hidden" name="orden" value="<?php echo $orden; ?>">
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <!-- Cabeceras con enlaces para ordenar (manteniendo el filtro de nombre) -->
+                <th><a href="listar_equipos.php?nombre=<?php echo $filtroNombre; ?>&orden=id_equipo">ID</a></th>
+                <th><a href="listar_equipos.php?nombre=<?php echo $filtroNombre; ?>&orden=nombre">Nombre</a></th>
+                <th>Email</th>
+                <th>Nº Integrantes</th>
+                <th><a href="listar_equipos.php?nombre=<?php echo $filtroNombre; ?>&orden=puntuacion">Puntuación</a></th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Bucle foreach para imprimir datos -->
+            <?php foreach ($equipos as $equipo): ?>
+                <tr>
+                    <td><?php echo $equipo['id_equipo']; ?></td>
+                    <td><?php echo $equipo['nombre']; ?></td>
+                    <td><?php echo $equipo['email']; ?></td>
+                    <td><?php echo $equipo['num_integrantes']; ?></td>
+                    <td><?php echo $equipo['puntuacion']; ?></td>
+                    <td>
+                        <!-- Enlace al formulario pasando el ID -->
+                        <a href="modificar_equipo.php?id=<?php echo $equipo['id_equipo']; ?>">Editar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html></code></pre>
+
+</div>
+</body>
+</html>
